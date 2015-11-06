@@ -9,7 +9,7 @@ app.controller('mainCtrl', function($scope, itunesService){
       height: '110px',
       sortInfo: {fields: ['Song', 'Artist', 'Collection', 'Type'], directions: ['asc']},
       columnDefs: [
-        {field: 'Play', displayName: 'Play', width: '40px', cellTemplate: '<div class="ngCellText" ng-class="col.colIndex()"><a href="{{row.getProperty(col.field)}}"><img src="http://www.icty.org/x/image/Miscellaneous/play_icon30x30.png"></a></div>'},
+        {field: 'Play', displayName: 'Play', width: '40px', cellTemplate: '<div class="ngCellText" ng-class="col.colIndex()"><a href="{{row.getProperty(col.field)}}"><img src="http://www.icty.org/x/image/Miscellaneous/play_icon30x30.png"></a></div>'}, 
         {field: 'Artist', displayName: 'Artist'},
         {field: 'Collection', displayName: 'Collection'},
         {field: 'AlbumArt', displayName: 'Album Art', width: '110px', cellTemplate: '<div class="ngCellText" ng-class="col.colIndex()"><img src="{{row.getProperty(col.field)}}"></div>'},
@@ -25,10 +25,10 @@ app.controller('mainCtrl', function($scope, itunesService){
     //code here
 
     $scope.getSongData = function() {
-      itunesService.getArtist($scope.artist).then(function(dataFromArtist) {
-          $scope.songData = dataFromArtist;
-      })
-    }
+      itunesService.getArtist($scope.artist).then(function(dataFromService) {
+          $scope.songData = dataFromService;
+      });
+    };
 
     $scope.getSongData;
   //Now write a function that will call the method on the itunesService that is responsible for getting the data from iTunes, whenever the user clicks the submit button

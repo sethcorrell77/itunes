@@ -11,12 +11,28 @@ app.service('itunesService', function($http, $q){
 
     //Code here
     this.getArtist = function(artist) {
+    	var deferred = $q.defer();
     	$http({
     		method: 'JSONP',
     		url: 'https://itunes.apple.com/search?term=' + artist + '&callback=JSON_CALLBACK'
     	}).then(function(res) {
 	    	var resultArray = res.data.results;
-	    });
+	    	var songArray = [];
+	    	for (var i = 0; i < resultArray.length; i++) {
+	    		var songObj = {
+	    			Play: resultArray[i].previewUrl,
+	    			Artist: resultArray[i].artistName,
+	    			Collection: resultArray[i].collectionName,
+	    			AlbumArt: resultArray[i].artworkUrl100,
+	    			Type: resultArray[i].kind,
+	    			CollectionPrice: resultArray[i].collectionPrice,
+	    			TrackName: resultArray[i].TrackName
+	    		};
+	    		songArray.push(songObj);
+	    	}
+	    	deferred.resolve(songArray);
+	     });
+	    return deferred.promise;
 	}
 });	
 /*
